@@ -13,7 +13,7 @@ public class BoardPage {
     // https://trello.com/b/qlvQVaH7/agile-board
 
     //  private final SelenideElement mainPageCheck = $(By.xpath("//title"));
-    private final SelenideElement boardPageName = $(By.tagName("h1"));
+    private final SelenideElement boardPageName = $(By.xpath("//h1"));
     private String boardPageCheckH1Locator = "//h1[contains(text(),";
 
     //Header
@@ -62,20 +62,20 @@ public class BoardPage {
 
     private final SelenideElement addCardListEnd = $(By.xpath("//a[contains(@class,'dialog-close-button')]"));
 
-
-    @Step("Проверка нахождения на нужной странице")
-    public boolean ifBoardPage(String forCheck) {
-        try {
-            boardPageName.hover();
-            return (boardPageName.getText().equals(forCheck));
-        } catch (Exception e) {
-            System.out.println("Main page was not found. " + e.getMessage());
-            return false;
-        }
-    }
+//
+//    @Step("Проверка нахождения на нужной странице")
+//    public boolean ifBoardPage(String forCheck) {
+//        try {
+//            boardPageName.hover();
+//            return (boardPageName.getText().equals(forCheck));
+//        } catch (Exception e) {
+//            System.out.println("Main page was not found. " + e.getMessage());
+//            return false;
+//        }
+//    }
 
     @Step("Проверка наименования доски")
-    public boolean ifTemplateBoardPage(String forCheck) {
+    public boolean ifBoardPage(String forCheck) {
         try {
             boardPageName.hover();
             return (boardPageName.getText().indexOf(forCheck) == 0);

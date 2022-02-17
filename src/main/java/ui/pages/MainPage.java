@@ -70,7 +70,7 @@ public class MainPage {
     private final ElementsCollection boardSectionHeaderOptionsItem = $$(By.xpath("//*[@class='boards-page-board-section-header-options-item-name']"));
 
     private final ElementsCollection boardSelectionListItems = $$(By.xpath("//li[@class='boards-page-board-section-list-item']"));
-
+    private String boardItem = "//div[contains(text(),'";
     private final SelenideElement boardSectionButtonLink = $(By.xpath("//div[@class='all-boards']//button"));
     private final ElementsCollection boardSectionButton = $$(By.xpath("//div[@class='all-boards']//button"));
 
@@ -99,7 +99,7 @@ public class MainPage {
     private final SelenideElement newTemplateSelectionTitle = $(By.xpath("//div[contains(@title,'Создать по шаблону')]"));
     private final SelenideElement newTemplateBoardTitleInput = $(By.xpath("//input[@data-test-id='create-board-title-input']"));
     private final ElementsCollection newTemplateBoardItems = $$(By.xpath("//*[contains(@style,'background-image')]"));
-    private final ElementsCollection newTemplateBoardItemsList = $$(By.xpath("//div[contains(@style,'background-image')]/following::div[1]"));
+  //  private final ElementsCollection newTemplateBoardItemsList = $$(By.xpath("//ul[contains(@style,'background-image')]"));
     private final ElementsCollection newTemplateBoardItemsList1 = $$(By.xpath("//div[contains(@style,'background-image')]/.."));
 
 
@@ -198,6 +198,16 @@ public class MainPage {
     @Step("Получить количество досок")
     public int getBoardCount() {
         return boardSelectionListItems.size();
+    }
+
+    @Step("Проверка наименования доски")
+    public boolean ifBoardPageExist(String forCheck) {
+        try {
+            return ($(By.xpath(boardItem + forCheck + "')]")).exists());
+        } catch (Exception e) {
+            System.out.println("Main page was not found. " + e.getMessage());
+            return false;
+        }
     }
 
     /*
@@ -326,11 +336,11 @@ public class MainPage {
         }
     }
 
-    @Step("Провевка создание доски")
+    @Step("Проверка создание доски")
     public BoardPage createNewBoard(String boardName, String boardViewType, String color) {
         try {
-            //        boardCreateLink.click();
-            setBoardName(boardName);
+                    boardCreateLink.click();
+
 
             //board view selection block
             switch (boardViewType) {
@@ -347,6 +357,7 @@ public class MainPage {
                     }
                     break;
             }
+            setBoardName(boardName);
             $(By.xpath(newBoardViewLocator)).click();
 
             //workspace selection block
@@ -365,7 +376,7 @@ public class MainPage {
      */
 
     @Step("Создание доски из шаблона")
-    public BoardPage createNewTemplateBoard(String boardName) {
+    public BoardPage createNewTemplateBoard(String boardName, String boardTemplate) {
         try {
             boardCreateLink.click();
 
@@ -375,11 +386,11 @@ public class MainPage {
             newTemplateBoardButton.hover().click();
 
             newTemplateSelectionTitle.hover();
-            System.out.println("element: " + newTemplateBoardItemsList1.toString());
-            System.out.println("size: " + newTemplateBoardItemsList1.size());
-            int a = newTemplateBoardItems.size();
-            int b = newTemplateBoardItemsList1.size();
-            newTemplateBoardItemsList1.get(LogUtils.chooseView(newTemplateBoardItemsList1.size())).click();
+//            System.out.println("element: " + newTemplateBoardItemsList1.toString());
+//            System.out.println("size: " + newTemplateBoardItemsList1.size());
+//            int a = newTemplateBoardItems.size();
+//            int b = newTemplateBoardItemsList1.size();
+           $(By.xpath("//div[contains(text(),'" + boardTemplate + "')]")).click();
             //      newTemplateBoardItemsList1.get(LogUtils.chooseView(newTemplateBoardItems.size())).click();
 
 
@@ -399,10 +410,10 @@ public class MainPage {
     @Step("Открытие страницы доски")
     public BoardPage openBoardPage(String boardName) {
         try {
-            if (boardSelectionListItems.find(text(boardName)).exists()) {
-                boardSelectionListItems.find(text(boardName)).click();
+            //   if (boardSelectionListItems.find(text(boardName)).exists()) {
+                $(By.xpath("//div[contains(text(),'" + boardName + "')]")).click();
                 return Selenide.page(BoardPage.class);
-            } else return null;
+//            } else return null;
         } catch (Exception e) {
             System.out.println("Can`t open " + boardName + ". " + e.getMessage());
         }
@@ -411,7 +422,7 @@ public class MainPage {
 
     @Step("Задать имя доски")
     public void setBoardName(String boardName) {
-        boardName = boardName + " " + newBoardTitleInput.getValue();
+     //   boardName = boardName + " " + newBoardTitleInput.getValue();
         newBoardTitleInput.setValue(boardName.trim());
     }
 

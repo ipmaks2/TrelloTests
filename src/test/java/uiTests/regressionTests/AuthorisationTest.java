@@ -28,9 +28,6 @@ public class AuthorisationTest {
         System.setProperty("webdriver.chrome.driver", "C:/Users/Violeta_B/bin/chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=ru");    //en-US
-//        WebDriver driver = new ChromeDriver(chromeOptions);
-//        driver.manage().window().maximize();
-//        driver.get("https://google.com");
     }
 
     @Epic(value = "Авторизация")

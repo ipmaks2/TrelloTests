@@ -1,6 +1,7 @@
 package ui.pages.userProfile;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ui.pages.MainPage;
 
@@ -25,12 +26,14 @@ public class ProfilePage {
 
     private final SelenideElement returnToMainButton = $(By.xpath("//*[@aria-label='Вернуться на главную страницу']"));
 
+    @Step("Установка опиания пользователя")
     public String setUserDescription(String description){
         userDescription.setValue(description);
         userDescriptionSave.click();
         return userDescription.getText();
     }
 
+    @Step("Изменение пользовательских настроек")
     public SettingsPage changeUserSettings() {
         try {
             userInfoButton.hover().click();
@@ -42,6 +45,7 @@ public class ProfilePage {
         return page(SettingsPage.class);
     }
 
+    @Step("Возврат на главную страницу")
     public MainPage returnToMain() {
         try {
             returnToMainButton.hover().click();

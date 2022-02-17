@@ -2,6 +2,7 @@ package ui.pages.userProfile;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ui.pages.MainPage;
 
@@ -35,6 +36,7 @@ public class SettingsPage {
 
     private final SelenideElement returnToMainButton = $(By.xpath("//*[@aria-label='Вернуться на главную страницу']"));
 
+    @Step("Изменение пользовательских настроек маркетинговых сообщений")
     public boolean changeMarketingNotification(){
         String[] marketingNotificationType = {"Отказаться", "Согласиться"};
         String ifAgree = getTypeNotification(marketingNotificationsText);
@@ -46,6 +48,7 @@ public class SettingsPage {
                 ? true : false;
     }
 
+    @Step("Изменение пользовательских настроек")
     public boolean changeRecommendation(){
         String[] recommendationNotificationType = {"Включить", "Отключить"};
         String ifAgree = getTypeNotification(recommendationsText);
@@ -57,6 +60,7 @@ public class SettingsPage {
                 ? true : false;
     }
 
+    @Step("Изменение пользовательских настроек получения писем")
     public String changeEmailNotificationType(String emailNotificationType){
 //        String[] emailNotificationType = {"Никогда", "Периодиески", "Мгновенно"};
         emailNotifications.click();
@@ -71,10 +75,12 @@ public class SettingsPage {
         return value;
     }
 
+    @Step("Получение текущих настроек")
     public String getTypeNotification(SelenideElement element){
         return element.getText().split(" ")[0];
     }
 
+    @Step("Изменение пользовательских настроек")
     public ProfilePage changeUserProfile() {
         //Профиль и доступ
         try {
@@ -87,6 +93,7 @@ public class SettingsPage {
         return Selenide.page(ProfilePage.class);
     }
 
+    @Step("Возврат на главную страницу")
     public MainPage returnToMain() {
         try {
             returnToMainButton.hover().click();

@@ -29,16 +29,4 @@ public class BoardInternalActionsTest extends BaseTest {
         boardPage.addCardDescription(descriptionText);
         boardPage.addCardComment(commentText);
     }
-
-//    @ParameterizedTest
-//    @CsvSource({"MyTestBoard, To do, task first, Первая задача для выполнения, Комментарий"})
-//    public void addNewListTest(String boardName, String listName, String cardName, String descriptionText, String commentText){
-//        MainPage mainPage = new MainPage();
-//        BoardPage boardPage = mainPage.openBoardPage(boardName);
-//        boardPage.ifBoardPage(boardName);
-//        boardPage.addNewList(listName);
-//        boardPage.addNewCard(cardName);
-//        boardPage.addCardDescription(descriptionText);
-//        boardPage.addCardComment(commentText);
-//    }
 }
