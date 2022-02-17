@@ -29,7 +29,6 @@ public class LogUtils {
 
         collectionOfItems
                 .forEach(i -> newList.add(i.getAttribute(attribute)));
-        //     for (String str : newList) System.out.println("newList str:" + str);
         return newList.stream().filter(i -> i != null).collect(Collectors.toList());
     }
 
@@ -45,12 +44,10 @@ public class LogUtils {
             for (String iInternal : pointsFromPage) {
                 if (iInternal.lastIndexOf(strForCheck) >= 0) {
                     checkItem = true;
-//                    System.out.println("page:" + iInternal + " pointsForCheck:" + strForCheck);
                 }
             }
             if (checkItem) check++;
         }
-//        System.out.println("check:" + check + " pointsForCheck:" + pointsForCheck.size());
         return check == pointsForCheck.size();
     }
 
@@ -63,7 +60,7 @@ public class LogUtils {
      * Getting random number between 1 and countOfItems
      */
     public static int chooseView(int countOfItems) {
-        return  (int) (Math.random() * countOfItems + 1);
+        return (int) (Math.random() * countOfItems + 1);
     }
 
 }

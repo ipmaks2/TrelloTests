@@ -10,7 +10,7 @@ import ui.pages.logination.AtlassianAddPage;
 import ui.pages.userProfile.ProfilePage;
 import ui.pages.userProfile.SettingsPage;
 import ui.utils.LogUtils;
-import ui.utils.MenuCheckObject;
+import api.pojo.MenuCheckObject;
 
 import java.util.List;
 
@@ -20,7 +20,6 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
 public class MainPage {
-    //  private final SelenideElement mainPageCheck = $(By.xpath("//title"));
     private final SelenideElement mainPageCheckH3 = $(By.xpath("//h3[@class='boards-page-section-header-name']"));
 
     //Authorization
@@ -32,7 +31,6 @@ public class MainPage {
 
     //Change profile
     private final SelenideElement changeUserMenuProfile = $(By.xpath("//a[@data-test-id='header-member-menu-profile']"));
-    private final SelenideElement changeUserMenuCards = $(By.xpath("//a[@data-test-id='header-member-menu-cards']"));
     private final SelenideElement changeUserMenuSettings = $(By.xpath("//a[@data-test-id='header-member-menu-settings']"));
 
     //Header
@@ -45,9 +43,6 @@ public class MainPage {
     private final SelenideElement headerInfoSectionLink = $(By.xpath("//button[contains(@data-test-id,'header')]"));
     private final SelenideElement searchLink = $(By.xpath("//*[@type='search']"));
     private final ElementsCollection search = $$(By.xpath("//*[@type='search']"));
-
-    //Home container
-    private final SelenideElement homeContainerLink = $(By.xpath("//div[@class='home-sticky-container']"));
 
     //Left sidebar container
     private final SelenideElement leftSidebarContainerLink = $(By.xpath("//*[@class='home-left-sidebar-container']"));
@@ -77,38 +72,15 @@ public class MainPage {
     private final SelenideElement boardCreateLink = $(By.xpath("//li[@data-test-id='create-board-tile']"));
     private final ElementsCollection boardCreate = $$(By.xpath("//li[@data-test-id='create-board-tile']"));
 
-    private final SelenideElement boardSelectionListItem = $(By.xpath("//a[contains(@class,'board-tile')]//div"));
-
     // choose of parameters for new board
     private final SelenideElement newBoardTitleInput = $(By.xpath("//input[@data-test-id='create-board-title-input']"));
-    private ElementsCollection newBoardView;//; = $$(By.xpath("//div[@id='background-picker']//li"));
-    private SelenideElement newBoardViewLink;// = $(By.xpath("//div[@id='background-picker']//li"));
+    private ElementsCollection newBoardView;
     private String newBoardViewLocator = "//div[@id='background-picker']//ul";
-    //  private String newBoardViewLocator = "//div[@id='background-picker']//button";
-    private final SelenideElement newBoardSpace = $(By.xpath("//*[contains(@id,'create-board-select-visibility')]"));
-    private final SelenideElement newBoardSpaceItemsParent = $(By.xpath("//*[contains(@id,'create-board-select-visibility')]"));
-    private final ElementsCollection newBoardSpaceItem = $$(By.xpath("//*[contains(@id,'create-board-select-visibility')]//span/*"));
-    private final ElementsCollection newBoardSpaceItems = $$(By.xpath("//*[contains(@id,'create-board-select-visibility')]//span//option"));
-
     private final SelenideElement newBoardButton = $(By.xpath("//*[@data-test-id='create-board-submit-button']"));
-    private final SelenideElement newBoardSpaceItem1 = $(By.xpath("//div[@class='css-1og2rpm']"));
-    private final SelenideElement newBoardSpaceItem2 = $(By.xpath("//*[contains(@id,'create-board-select-visibility')]//[@aria-relevant='additions text']//span[@id='aria-selection']"));
 
     // new board template
     private final SelenideElement newTemplateBoardButton = $(By.xpath("//*[@data-test-id='create-from-template-button']"));
     private final SelenideElement newTemplateSelectionTitle = $(By.xpath("//div[contains(@title,'Создать по шаблону')]"));
-    private final SelenideElement newTemplateBoardTitleInput = $(By.xpath("//input[@data-test-id='create-board-title-input']"));
-    private final ElementsCollection newTemplateBoardItems = $$(By.xpath("//*[contains(@style,'background-image')]"));
-  //  private final ElementsCollection newTemplateBoardItemsList = $$(By.xpath("//ul[contains(@style,'background-image')]"));
-    private final ElementsCollection newTemplateBoardItemsList1 = $$(By.xpath("//div[contains(@style,'background-image')]/.."));
-
-
-    //All buttons
-    //  private final ElementsCollection buttons = $$(By.xpath("//button"));
-
-    /*
-     * Checking the main paige. Getting the h3-title
-     */
 
     @Step("Проверка нахождения на нужной странице")
     public boolean ifMainPage() {
@@ -169,7 +141,6 @@ public class MainPage {
     public AtlassianAddPage logOut() {
         try {
             userInfoButton.hover().click();
-            //  userInfoMenu.shouldBe(enabled);
             userLogout.click();
             userLogoutSubmit.click();
         } catch (Exception e) {
@@ -178,22 +149,11 @@ public class MainPage {
         return page(AtlassianAddPage.class);
     }
 
-    /*
-     * Click left menu point
-     */
-
     @Step("Провевка левого меню")
     public MainPage leftMenuPointClick(String pointOfMenu) {
-     //   leftSidebarContainerLink.hover();
-//        System.out.println("menu list"
-//                + leftSidebarContainerMenu.filter(not(empty)).texts().toString());
         leftSidebarContainerMenu.find(text(pointOfMenu)).click();
         return this;
     }
-
-    /*
-     * Getting count of boards
-     */
 
     @Step("Получить количество досок")
     public int getBoardCount() {
@@ -217,7 +177,6 @@ public class MainPage {
      * button - only buttons
      * search - search section
      */
-
     @Step("Провевка навигационного меню")
     public MenuCheckObject getExistsItem(String forSearch) {
         MenuCheckObject resultFromPage = null;
@@ -314,7 +273,6 @@ public class MainPage {
 
     @Step("Провевка навигационного меню, получениие списка пунктов")
     public List<String> getListOfItemsOfCheckedSection(ElementsCollection elementForSearch, String kindOfSearch) {
-        //      topNavigatorOptionLink.hover();
         switch (kindOfSearch) {
             case "text":
                 return elementForSearch.filter(not(empty)).texts();
@@ -322,10 +280,6 @@ public class MainPage {
                 return LogUtils.getAttribute(elementForSearch, kindOfSearch);
         }
     }
-
-    /*
-     * Checking creating of new board
-     */
 
     @Step("Создание доски")
     public void boardCreateClick() {
@@ -339,8 +293,7 @@ public class MainPage {
     @Step("Проверка создание доски")
     public BoardPage createNewBoard(String boardName, String boardViewType, String color) {
         try {
-                    boardCreateLink.click();
-
+            boardCreateLink.click();
 
             //board view selection block
             switch (boardViewType) {
@@ -370,11 +323,6 @@ public class MainPage {
         return Selenide.page(BoardPage.class);
     }
 
-
-    /*
-     * Checking creating of new board from template
-     */
-
     @Step("Создание доски из шаблона")
     public BoardPage createNewTemplateBoard(String boardName, String boardTemplate) {
         try {
@@ -386,17 +334,7 @@ public class MainPage {
             newTemplateBoardButton.hover().click();
 
             newTemplateSelectionTitle.hover();
-//            System.out.println("element: " + newTemplateBoardItemsList1.toString());
-//            System.out.println("size: " + newTemplateBoardItemsList1.size());
-//            int a = newTemplateBoardItems.size();
-//            int b = newTemplateBoardItemsList1.size();
-           $(By.xpath("//div[contains(text(),'" + boardTemplate + "')]")).click();
-            //      newTemplateBoardItemsList1.get(LogUtils.chooseView(newTemplateBoardItems.size())).click();
-
-
-//            $(By.xpath(newTemplateBoardItemLocator
-//                    + "[" + LogUtils.chooseView(newTemplateBoardItems.size()) + "]"))
-//                    .click();
+            $(By.xpath("//div[contains(text(),'" + boardTemplate + "')]")).click();
 
             //set name of board and finish
             setBoardName(boardName);
@@ -410,10 +348,8 @@ public class MainPage {
     @Step("Открытие страницы доски")
     public BoardPage openBoardPage(String boardName) {
         try {
-            //   if (boardSelectionListItems.find(text(boardName)).exists()) {
-                $(By.xpath("//div[contains(text(),'" + boardName + "')]")).click();
-                return Selenide.page(BoardPage.class);
-//            } else return null;
+            $(By.xpath("//div[contains(text(),'" + boardName + "')]")).click();
+            return Selenide.page(BoardPage.class);
         } catch (Exception e) {
             System.out.println("Can`t open " + boardName + ". " + e.getMessage());
         }
@@ -422,7 +358,6 @@ public class MainPage {
 
     @Step("Задать имя доски")
     public void setBoardName(String boardName) {
-     //   boardName = boardName + " " + newBoardTitleInput.getValue();
         newBoardTitleInput.setValue(boardName.trim());
     }
 
@@ -431,23 +366,4 @@ public class MainPage {
         if (button.isDisplayed()) button.click();
         else System.out.println("The template button does not displayed");
     }
-
-    //workspace selection block
-
-//        newBoardSpace.click();
-//        System.out.println(newBoardSpaceItemsParent.findAll(By.xpath("*")).toString());
-//  //      System.out.println(newBoardSpaceItemsParent.findAll(By.xpath("*[@aria-relevant='additions text']//*")).toString());
-//
-//        System.out.println(newBoardSpaceItemsParent.findAll(
-//                By.xpath("*[@aria-relevant='additions text']//*")).toString());
-
-//        System.out.println(
-    //        newBoardSpaceItemsParent.findElement(
-    //         By.xpath("*[@aria-relevant='additions text']//span[@id='aria-selection']")).click();
-//        LogUtils.prnList(newBoardSpaceItems.filter(not(empty)).texts());
-    //    newBoardSpace.selectOptionContainingText(boardType);
-
-    //    newBoardSpaceItem2.setSelected(true);
-    //                    newBoardSpaceItem1.setValue("Приватная");
-
 }

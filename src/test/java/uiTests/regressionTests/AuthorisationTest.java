@@ -1,6 +1,5 @@
 package uiTests.regressionTests;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.junit5.ScreenShooterExtension;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
@@ -23,9 +22,6 @@ public class AuthorisationTest {
 
     @BeforeAll
     public static void setUp() {
-        Configuration.browser = "chrome";
-        Configuration.browserSize="1920x1080";
-        System.setProperty("webdriver.chrome.driver", "C:/Users/Violeta_B/bin/chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=ru");    //en-US
     }

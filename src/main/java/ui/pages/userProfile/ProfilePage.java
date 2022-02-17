@@ -16,18 +16,12 @@ public class ProfilePage {
     //User info
     private final SelenideElement userInfoButton = $(By.xpath("//button[@data-test-id='header-member-menu-button']"));
     private final SelenideElement userInfoMenu = $(By.xpath("//section[@data-test-id='header-member-menu-popover']"));
-    private final SelenideElement userLogout = $(By.xpath("//button[@data-test-id='header-member-menu-logout']"));
-    private final SelenideElement userLogoutSubmit = $(By.id("logout-submit"));
-    private final SelenideElement userLogoutExit = $(By.xpath("//button[@data-test-id='popover-close']"));
-
-    private final SelenideElement changeUserMenuProfile = $(By.xpath("//a[@data-test-id='header-member-menu-profile']"));
-    private final SelenideElement changeUserMenuCards = $(By.xpath("//a[@data-test-id='header-member-menu-cards']"));
     private final SelenideElement changeUserMenuSettings = $(By.xpath("//a[@data-test-id='header-member-menu-settings']"));
 
     private final SelenideElement returnToMainButton = $(By.xpath("//*[@aria-label='Вернуться на главную страницу']"));
 
     @Step("Установка опиания пользователя")
-    public String setUserDescription(String description){
+    public String setUserDescription(String description) {
         userDescription.setValue(description);
         userDescriptionSave.click();
         return userDescription.getText();

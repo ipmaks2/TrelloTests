@@ -7,9 +7,9 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AtlassianPage {
-    private SelenideElement passwordInput = $(By.id("password"));
-    private SelenideElement submitButton = $(By.id("login-submit"));
-    private SelenideElement hiddenButton = $(By.xpath("//span[@role='presentation']"));
+    private final SelenideElement passwordInput = $(By.id("password"));
+    private final SelenideElement submitButton = $(By.id("login-submit"));
+    private final SelenideElement hiddenButton = $(By.xpath("//span[@role='presentation']"));
 
     @Step("¬вод данных пользовател€")
     public AtlassianPage enterTextToLoginString(String text) {

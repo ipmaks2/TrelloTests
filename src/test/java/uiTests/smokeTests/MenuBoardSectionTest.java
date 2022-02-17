@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import ui.pages.MainPage;
 import ui.utils.LogUtils;
-import ui.utils.MenuCheckObject;
+import api.pojo.MenuCheckObject;
 import uiTests.BaseTest;
 
 import java.util.Arrays;
@@ -51,7 +51,7 @@ public class MenuBoardSectionTest extends BaseTest {
     @MethodSource("dataForCheckOfLeftMenu")
     public void testTopMenu(String typeOfSearch,
                             List<String> listForCheck,
-                            String errorMessage) throws InterruptedException {
+                            String errorMessage){
 
         //top menu block: checking existing and list of elements
         MenuCheckObject topMenuList = mainPage.getExistsItem(typeOfSearch);

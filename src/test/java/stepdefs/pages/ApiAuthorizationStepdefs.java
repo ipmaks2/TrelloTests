@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 
 public class ApiAuthorizationStepdefs {
 
-    private static String getUserInfoRequest = "members/me/?fields=id,fullName,url,username,status,email&";
+    private final String getUserInfoRequest = "members/me/?fields=id,fullName,url,username,status,email&";
     UserRootData userInfo = new UserRootData();
 
     @When("sent the get request about user info")

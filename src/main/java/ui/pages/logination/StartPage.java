@@ -37,7 +37,7 @@ public class StartPage {
 
     @Step("Âûבמנ ÿחûךא טםעונפויא")
     public StartPage setRusLanguage() {
-        if (language.getValue() != "ru") {
+        if (!language.getValue().equals("ru")) {
             language.selectOptionByValue("ru");
         }
         return this;

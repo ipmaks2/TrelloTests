@@ -18,7 +18,6 @@ import java.util.stream.Stream;
 @ExtendWith(ScreenShooterExtension.class)
 public class BoardTest extends BaseTest {
 
-    private final String mainPageCheck = "ÂÀØÈ ÐÀÁÎ×ÈÅ ÏÐÎÑÒÐÀÍÑÒÂÀ";
     private MainPage mainPage = new MainPage();
 
     static Stream<Arguments> dataForCheckOfNewBoardCreation() {
@@ -68,7 +67,7 @@ public class BoardTest extends BaseTest {
     public void testNewTemplateBoardCreation() {
         String boardName = "MyTemplateBoard";
         String boardTemplate = "Design Huddle";
-   ///     MainPage mainPage = new MainPage();
+
         BoardPage boardPage = mainPage
                 .createNewTemplateBoard(boardName, boardTemplate);
 
@@ -92,18 +91,13 @@ public class BoardTest extends BaseTest {
     @Flaky
     @ValueSource(strings = {"MyTemplateBoard", "MyVioletBoard", "MyBoardWithPictures"})
     public void testDeleteBoard(String boardName) {
-        String boardMenuItem = "Äîñêè";
         MainPage mainPage = new MainPage();
-        int startBoardCount = mainPage.leftMenuPointClick(boardMenuItem).getBoardCount();
         BoardPage boardPage = mainPage.openBoardPage(boardName);
 
         if (boardPage != null) {
             boardPage.closeBoardPage().closeBoard();
 
-            // new count of boards on the main paige
-            int endBoardCount = mainPage.leftMenuPointClick(boardMenuItem).getBoardCount();
-            Assertions.assertTrue(!mainPage.ifBoardPageExist(boardName), "New board name was found");
-        //    Assertions.assertEquals(1, (startBoardCount - endBoardCount), "Count of boards on the main page does not match");
+            Assertions.assertFalse(mainPage.ifBoardPageExist(boardName), "New board name was found");
         } else {
             System.out.println("The board " + boardName + " was not found");
         }

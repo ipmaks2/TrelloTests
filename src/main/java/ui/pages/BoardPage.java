@@ -1,6 +1,5 @@
 package ui.pages;
 
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -10,30 +9,12 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class BoardPage {
-    // https://trello.com/b/qlvQVaH7/agile-board
 
-    //  private final SelenideElement mainPageCheck = $(By.xpath("//title"));
     private final SelenideElement boardPageName = $(By.xpath("//h1"));
-    private String boardPageCheckH1Locator = "//h1[contains(text(),";
-
-    //Header
-    private final SelenideElement topNavigatorOptionLink = $(By.id("header"));
-    private final SelenideElement topNavigatorMenuLink = $(By.xpath("//div[@id='header']//button[@type='button']"));
-    private final ElementsCollection topNavigatorMenu = $$(By.xpath("//div[@id='header']//button[@type='button']"));
-    private final ElementsCollection topNavigatorDropdownMenu = $$(By.xpath("//div[@id='header']//button[@type='button']//span"));
-
-    private final ElementsCollection headerInfoSectionButton = $$(By.xpath("//button[contains(@data-test-id,'header')]//span"));
-    private final SelenideElement headerInfoSectionLink = $(By.xpath("//button[contains(@data-test-id,'header')]"));
-    private final SelenideElement searchLink = $(By.xpath("//*[@type='search']"));
-    private final ElementsCollection search = $$(By.xpath("//*[@type='search']"));
-
     private final SelenideElement returnToMainButton = $(By.xpath("//*[@aria-label='Вернуться на главную страницу']"));
-
-    //Home container
 
     //Menu for other options
     private final SelenideElement menuForOtherOptions = $(By.xpath("//*[contains(@class,'board-header-btn mod-show-menu')]"));
-    private final SelenideElement menuForOtherOptionsContainer = $(By.xpath("//div[@class='board-menu-header-content']"));
     private final SelenideElement menuForOtherOptionsContainerOpenMore = $(By.xpath("//*[contains(@class,'js-open-more')]"));
     private final SelenideElement menuForOtherOptionsContainerCloseBoard = $(By.xpath("//*[contains(@class,'js-close-board')]"));
     private final SelenideElement menuForOtherOptionsContainerSubmitCloseBoard = $(By.xpath("//*[contains(@class,'js-confirm')]"));
@@ -45,7 +26,6 @@ public class BoardPage {
     private final SelenideElement addListSubmitButton = $(By.xpath("//input[@type='submit']"));
     private final SelenideElement cancelEditButton = $(By.xpath("//a[contains(@class,'js-cancel-edit')]"));
 
-  //  private final SelenideElement listWrapper = $(By.className("js-list list-wrapper"));
     private final SelenideElement addCardButton = $(By.xpath("//a[contains(@class,'open-card-composer')]"));
     private final SelenideElement cardNameInput = $(By.xpath("//textarea[contains(@class,'list-card-composer-textarea')]"));
     private final SelenideElement addCardCancel = $(By.xpath("//a[contains(@class,'js-cancel')]"));
@@ -58,21 +38,6 @@ public class BoardPage {
     private final SelenideElement cardCommentSubscribe = $(By.xpath("//span[contains(@class,'comment-subscribe')]"));
     private final SelenideElement cardCommentSave = $(By.xpath("//div[contains(@class,'comment-controls')]//input[contains(@class,'js-add-comment')]"));
     private final SelenideElement closeListEditButton = $(By.xpath("//a[contains(@class,'js-close-window')]"));
-
-
-    private final SelenideElement addCardListEnd = $(By.xpath("//a[contains(@class,'dialog-close-button')]"));
-
-//
-//    @Step("Проверка нахождения на нужной странице")
-//    public boolean ifBoardPage(String forCheck) {
-//        try {
-//            boardPageName.hover();
-//            return (boardPageName.getText().equals(forCheck));
-//        } catch (Exception e) {
-//            System.out.println("Main page was not found. " + e.getMessage());
-//            return false;
-//        }
-//    }
 
     @Step("Проверка наименования доски")
     public boolean ifBoardPage(String forCheck) {
@@ -109,7 +74,7 @@ public class BoardPage {
     }
 
     @Step("Добавить описание карточки")
-    public void addCardDescription( String descriptionText) {
+    public void addCardDescription(String descriptionText) {
         try {
             addCardDetails.click();
             cardDescription.click();
@@ -150,6 +115,4 @@ public class BoardPage {
         menuForOtherOptionsContainerSubmitCloseBoard.click();
         return Selenide.page(CloseBoardPage.class);
     }
-
-
 }

@@ -9,17 +9,16 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class LoginPage {
 
-    String insertLoginPageCheckStr = "https://trello.com/login";
     private final SelenideElement language = $(By.id("language-picker"));
     private final SelenideElement insertLoginPageCheck = $(By.xpath("//h1[contains(text(),'Вход в Trello')]"));
-    private SelenideElement emailInput = $(By.id("user"));
-    private SelenideElement passwordInput = $(By.id("password"));
-    private SelenideElement loginButton = $(By.id("login"));
-    private SelenideElement ssoButton = $(By.id("use-sso-button"));
-    private SelenideElement googleButton = $(By.id("googleButton"));
-    private SelenideElement msButton = $(By.id("msftButton"));
-    private SelenideElement appleButton = $(By.id("signInWithAppleButton"));
-    private SelenideElement errorMessage = $(By.xpath("//p[@class='error-message']"));
+    private final SelenideElement emailInput = $(By.id("user"));
+    private final SelenideElement passwordInput = $(By.id("password"));
+    private final SelenideElement loginButton = $(By.id("login"));
+    private final SelenideElement ssoButton = $(By.id("use-sso-button"));
+    private final SelenideElement googleButton = $(By.id("googleButton"));
+    private final SelenideElement msButton = $(By.id("msftButton"));
+    private final SelenideElement appleButton = $(By.id("signInWithAppleButton"));
+    private final SelenideElement errorMessage = $(By.xpath("//p[@class='error-message']"));
 
     @Step("Проверка нахождения на нужной странице")
     public LoginPage ifLoginPage() {
@@ -56,7 +55,7 @@ public class LoginPage {
 
     @Step("Нажатие на подтвеждающую действие кнопку")
     public LoginPage ssoClick() {
-        if (loginButton.getValue().compareTo("Войти") == 0) {
+        if (loginButton.getValue().equals("Войти")) {
             ssoButton.click();
         }
         return this;
@@ -77,7 +76,7 @@ public class LoginPage {
 
     @Step("Выбор языка интерфейа")
     public LoginPage setRusLanguage() {
-        if (language.getValue() != "ru"){
+        if (!language.getValue().equals("ru")){
             language.selectOptionByValue("ru");
         }
         return this;

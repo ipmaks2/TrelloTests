@@ -8,18 +8,15 @@ import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
 public class ApiBoardStepdefs {
 
-    private static String getBoardNamesRequest = ApiValue.getBoardInfoRequest;
-    private static String getBoardInfoFilterRequest = ApiValue.getBoardInfoFilterRequest;
+    private final String getBoardNamesRequest = ApiValue.getBoardInfoRequest;
+    private final String getBoardInfoFilterRequest = ApiValue.getBoardInfoFilterRequest;
 
     List<BoardData> boardList;
     List<String> boardNameList;

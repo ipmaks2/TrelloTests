@@ -1,9 +1,5 @@
 package hooks;
 
-//import com.codeborne.selenide.Selenide;
-//import eyes.Eyes;
-//import io.cucumber.core.backend.TestCaseState;
-//import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import ui.pages.logination.StartPage;

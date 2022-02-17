@@ -25,15 +25,9 @@ public class SettingsPage {
     //User info
     private final SelenideElement userInfoButton = $(By.xpath("//button[@data-test-id='header-member-menu-button']"));
     private final SelenideElement userInfoMenu = $(By.xpath("//section[@data-test-id='header-member-menu-popover']"));
-    private final SelenideElement userLogout = $(By.xpath("//button[@data-test-id='header-member-menu-logout']"));
-    private final SelenideElement userLogoutSubmit = $(By.id("logout-submit"));
-    private final SelenideElement userLogoutExit = $(By.xpath("//button[@data-test-id='popover-close']"));
 
     //Menu
     private final SelenideElement changeUserMenuProfile = $(By.xpath("//a[@data-test-id='header-member-menu-profile']"));
-    private final SelenideElement changeUserMenuCards = $(By.xpath("//a[@data-test-id='header-member-menu-cards']"));
-    private final SelenideElement changeUserMenuSettings = $(By.xpath("//a[@data-test-id='header-member-menu-settings']"));
-
     private final SelenideElement returnToMainButton = $(By.xpath("//*[@aria-label='Вернуться на главную страницу']"));
 
     @Step("Изменение пользовательских настроек маркетинговых сообщений")
@@ -62,16 +56,11 @@ public class SettingsPage {
 
     @Step("Изменение пользовательских настроек получения писем")
     public String changeEmailNotificationType(String emailNotificationType){
-//        String[] emailNotificationType = {"Никогда", "Периодиески", "Мгновенно"};
         emailNotifications.click();
-//        SelenideElement emailNotificationItem = emailNotificationText.filter(text(emailNotificationType)).first();
-//        if(!emailNotificationItem.find(By.xpath("span[contains(@class,'icon-check')]")).exists())
-//            emailNotificationItem.click();
         emailNotificationsMenu.shouldHave(value(emailNotificationType)).click();
         emailNotifications.click();
         String value = emailNotificationsSelect.parent().getValue();
         emailNotificationClose.click();
-     //   String selectItem = emailNotificationsMenu.first().getValue();
         return value;
     }
 
