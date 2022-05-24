@@ -2,11 +2,18 @@ package uiTests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.junit5.ScreenShooterExtension;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
+
+import java.util.List;
+import java.util.logging.Level;
 import ui.pages.logination.AtlassianPage;
 import api.utils.ConfProperties;
 
+import static com.codeborne.selenide.Selenide.getWebDriverLogs;
 import static com.codeborne.selenide.Selenide.open;
 
 @ExtendWith(ScreenShooterExtension.class)
@@ -18,13 +25,32 @@ public class BaseTest {
     @BeforeAll
     public static void setUp() {
 
+
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
-        System.setProperty("webdriver.chrome.driver", "C:/Users/Violeta_B/bin/chromedriver.exe");
+
+        LoggingPreferences loggingPrefs = new LoggingPreferences();
+        loggingPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+        Configuration.browserCapabilities.setCapability("goog:loggingPrefs", loggingPrefs);
+        System.setProperty("webdriver.chrome.driver", "../downloads/chromedriver");
 
         AtlassianPage atlassianPage = open(baseAuthorizedUrl, AtlassianPage.class);
         atlassianPage.enterTextToLoginString(ConfProperties.getProperty("password"));
 
         atlassianPage.loginButtonClick().getMainPage();
+    }
+
+    public static List<String> getAvailableLogEntries(){
+        return getWebDriverLogs(LogType.PERFORMANCE, Level.ALL);
+    }
+
+    @AfterAll
+    public static void TeardownLogs(){
+        for (String line: getAvailableLogEntries()){
+            if (line.contains("Network.requestWillBeSent") && !line.contains("ExtraInfo") && line.contains("api")) {
+                System.out.println(line);
+            }
+        }
+
     }
 }
